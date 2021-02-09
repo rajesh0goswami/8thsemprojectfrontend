@@ -1,0 +1,26 @@
+<form>
+    <h2>Login</h2>
+    <label>
+      <p class="label-txt">ENTER YOUR EMAIL</p>
+      <input type="email" name="email" class="input" [(ngModel)]="email">
+      <div class="line-box">
+        <div class="line"></div>
+      </div>
+    </label>
+    <label>
+      <p class="label-txt">ENTER YOUR NAME</p>
+      <input type="text" name="uname" class="input"[(ngModel)]="uname">
+      <div class="line-box">
+        <div class="line"></div>
+      </div>
+    </label>
+    <label>
+      <p class="label-txt">ENTER YOUR PASSWORD</p>
+      <input type="password" class="input" name="password"[(ngModel)]="password" >
+      <div class="line-box">
+        <div class="line"></div>
+      </div>
+    </label>
+    <button type="submit" (click)="OnLogin()">submit</button>
+    <a id="ll" href="">Home</a>
+</form>
