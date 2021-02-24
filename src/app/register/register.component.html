@@ -1,5 +1,6 @@
 <form>
     <h2>Sign Up</h2>
+    <div class="alert alert-success" *ngIf="isRegister">{{successMessage}}</div>
     <label>
       <p class="label-txt">ENTER YOUR EMAIL</p>
       <input type="email" name="email" class="input" [(ngModel)]="email">
@@ -21,6 +22,6 @@
         <div class="line"></div>
       </div>
     </label>
-    <button type="submit" (click)="OnLogin()">submit</button>
+    <button type="submit" (click)="onCreateUser()">submit</button>
     <a id="ll" href="">Home</a>
 </form>

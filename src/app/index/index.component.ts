@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input,Output } from '@angular/core';
 
 @Component({
   selector: 'app-index',
@@ -9,8 +9,12 @@ export class IndexComponent implements OnInit {
 
   movie_name : String
 
+  
+  
+
   SearchMovie(){
     console.log(this.movie_name)
+    
 
   }
 
