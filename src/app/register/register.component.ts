@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users.service'
+import { User } from '../user'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,6 +11,7 @@ export class RegisterComponent implements OnInit {
   uname : string
   email : string
   password : string
+  user: User
   successMessage : string
   isRegister : boolean = false;
 
@@ -22,14 +24,20 @@ export class RegisterComponent implements OnInit {
 
 
   onCreateUser(){
-    this._userService.saveUser({name: this.uname,email:this.email,password:this.password}).subscribe(responseData=>{
-      console.log(responseData.user)
-      if(responseData.user[0]._id){
-        this.successMessage = responseData.message;
-        this.isRegister = true;
+    this.user = {
+      username: this.uname,
+      email: this.email,
+      password: this.password
+    }
+    this._userService.saveUser(this.user).subscribe();
+    // this._userService.saveUser({name: this.uname,email:this.email,password:this.password}).subscribe(responseData=>{
+    //   console.log(responseData.user)
+    //   if(responseData.user[0]._id){
+    //     this.successMessage = responseData.message;
+    //     this.isRegister = true;
         
-      }
-    })
+      // }
+    // })
   }
 
  

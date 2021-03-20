@@ -7,7 +7,7 @@ import { stringify } from 'querystring';
 })
 export class UsersService {
 
-  private _baseUri = "http://localhost:8080/user/"
+  private _baseUri = "http://localhost:8080/users/"
   constructor(private _http : HttpClient) { }
 
   saveUser(user){
