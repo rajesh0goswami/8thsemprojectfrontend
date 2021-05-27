@@ -7,7 +7,8 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MovieService {
-  private _baseUri = "http://localhost:8080/movies/"
+  // private _baseUri = "http://localhost:8080/movies/"
+  private _baseUri = "https://movie-ticket-backend.herokuapp.com/movies/"
   constructor(private _http : HttpClient) { }
 
   doSearch(){
@@ -61,7 +62,7 @@ export class MovieService {
       headers: httpHeaders
     }
     
-     return this._http.post<{message : string}>(this._baseUri+'/update1/'+movie.id,movie, httpOptions );
+     return this._http.put<{message : string}>(this._baseUri+'/update1/'+movie.id,movie, httpOptions );
 
   }
 
