@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
+import { AdminComponent } from './admin/admin.component';
 import { BookingComponent } from './booking/booking.component';
+import { BookingdetailsComponent } from './bookingdetails/bookingdetails.component';
 import { ContactComponent } from './contact/contact.component';
+import { EditmovieComponent } from './editmovie/editmovie.component';
 import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
 import { MovieComponent } from './movie/movie.component';
@@ -23,11 +26,11 @@ const routes: Routes = [
     component:RegisterComponent
   },
   {
-    path:"movie",
+    path:"movie/:id",
     component:MovieComponent
   },
   {
-    path:"booking",
+    path:"booking/:id",
     component:BookingComponent
   },
   {
@@ -37,7 +40,19 @@ const routes: Routes = [
   {
     path:"about",
     component:AboutComponent
-  }
+  },
+  {
+    path:"admin",
+    component:AdminComponent
+  },
+  {
+    path:"edit/:id",
+    component:EditmovieComponent
+  },
+  {
+    path:"details/:id",
+    component:BookingdetailsComponent
+  },
 ];
 
 @NgModule({

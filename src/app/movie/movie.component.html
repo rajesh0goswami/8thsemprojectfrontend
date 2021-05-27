@@ -1,10 +1,13 @@
 <div class="row">
     <div class="col">
-        <img src="https://d2j1wkp1bavyfs.cloudfront.net/image-assets/400160/jlJ8nDhMhCYJuzOw3f52CP1W8MW.jpg?d=360x540&q=50" alt="">
+        <img src="{{imglink}}" alt="">
+        <h2>Rs.{{price}}</h2>
     </div>
+
     <div class="col">
         <p></p>
-        <button type="button" class="btn btn-info" [routerLink]="['/booking']">Book Ticket</button>
+        <button type="button" class="btn btn-info" [routerLink]="['/booking',id]">Book Ticket</button>
     </div>
+    <a class="nav-link">Hi-{{userName}}</a>
 
 </div>
