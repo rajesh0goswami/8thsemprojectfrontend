@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../Movie';
+
 import { MovieService } from '../movie.service';
 import{map} from 'rxjs/operators'
 import {ActivatedRoute} from '@angular/router';
 import { Router } from '@angular/router';
+import { Movie } from '../movie';
 @Component({
   selector: 'app-editmovie',
   templateUrl: './editmovie.component.html',

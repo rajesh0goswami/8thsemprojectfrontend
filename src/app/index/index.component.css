@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
 #image {
     width: 100%;
     height: 70%;
@@ -72,7 +73,6 @@
     color: black;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
 body {
     background: linear-gradient(0deg, #fff, 50%, #DEEEFE);
     font-family: 'Rubik', sans-serif;
