@@ -30,6 +30,10 @@ export class AdminComponent implements OnInit {
   addmovie(){
     this.show3=!this.show3
   }
+
+  showRevinue(){
+    this.show4=!this.show4
+  }
   
 
 }

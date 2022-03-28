@@ -13,6 +13,7 @@ export class MovieComponent implements OnInit {
   movies : Movie[];
   movie : Movie;
   moviename:String;
+  revinue:number
   price:String;
   id :string
   imglink:String;
@@ -30,6 +31,7 @@ export class MovieComponent implements OnInit {
         this.moviename = responseData.movie.moviename
         console.log(this.moviename)
         this.price= responseData.movie.price
+        this.revinue=responseData.movie.revinue
         this.description=responseData.movie.description
         this.imglink=responseData.movie.imglink
        

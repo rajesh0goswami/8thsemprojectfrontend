@@ -300,4 +300,7 @@
 </div>
 <div class="alert alert-info" role="alert" *ngIf="showBill">
     Your bill is Rs.{{amount}}
+    <app-jspdf [amount]="amount" [releasedate]="releasedate" [showtime]="showtime" [count]="count" [moviename]="moviename" [booked_seats]="booked_seats"></app-jspdf>
+    <!-- <app-jspdf></app-jspdf> -->
+    <app-payment></app-payment>
 </div>

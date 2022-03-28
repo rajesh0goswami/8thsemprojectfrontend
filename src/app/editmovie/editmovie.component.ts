@@ -13,7 +13,7 @@ import { Movie } from '../movie';
 export class EditmovieComponent implements OnInit {
 
   movie:Movie
-  
+  revinue:number
   id: string
   moviename:String
   A1:any={} ;A2:any={};A3:any={};A4:any={};A5:any={};A6:any={};A7:any={};A8:any={};A9:any={};A10:any={}
@@ -27,7 +27,7 @@ export class EditmovieComponent implements OnInit {
 
   update(){
     
-    this.movie= { id :this.id , moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releaseDate,showTime:this.showTime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
+    this.movie= { id :this.id ,revinue:this.revinue, moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releaseDate,showTime:this.showTime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
       this._movieService.updateMovie1(this.movie).subscribe()
 
       this._router.navigate(['/admin']);

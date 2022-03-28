@@ -7,8 +7,8 @@ import { stringify } from 'querystring';
 })
 export class UsersService {
 
-  // private _baseUri = "http://localhost:8080/users/"
-  private _baseUri = "https://movie-ticket-backend.herokuapp.com/users/"
+  private _baseUri = "http://localhost:8080/users/"
+  // private _baseUri = "https://movie-ticket-backend.herokuapp.com/users/"
   constructor(private _http : HttpClient) { }
 
   saveUser(user){

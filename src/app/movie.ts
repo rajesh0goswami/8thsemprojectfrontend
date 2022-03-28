@@ -16,7 +16,7 @@ export class Movie {
     A8:seat;
     A9:seat;
     A10:seat;
-   
+   revinue:number;
 }
 interface seat {
     available: boolean;

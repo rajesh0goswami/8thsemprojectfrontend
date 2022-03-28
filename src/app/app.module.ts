@@ -16,7 +16,14 @@ import { ShowmoviesComponent } from './showmovies/showmovies.component';
 import { AddmovieComponent } from './addmovie/addmovie.component';
 import { EditmovieComponent } from './editmovie/editmovie.component';
 import { BookingdetailsComponent } from './bookingdetails/bookingdetails.component';
+import { JspdfComponent } from './jspdf/jspdf.component';
+import { PaymentComponent } from './payment/payment.component';
+import {NgxPrintModule} from 'ngx-print';
 
+import { QRCodeModule } from 'angular2-qrcode';
+import { ShowRevinueComponent } from './show-revinue/show-revinue.component';
+import { GooglePayButtonModule } from '@google-pay/button-angular';
+import { GoogleChartsModule } from 'angular-google-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,21 +36,25 @@ import { BookingdetailsComponent } from './bookingdetails/bookingdetails.compone
     MovieComponent,
     AdminComponent,
     ShowmoviesComponent,
-    
     AddmovieComponent,
-    
     EditmovieComponent,
-    
-    BookingdetailsComponent
+    BookingdetailsComponent,  
+    JspdfComponent,
+    PaymentComponent,
+    ShowRevinueComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
-
+    HttpClientModule,
+    NgxPrintModule,
+    QRCodeModule,
+    GoogleChartsModule,
+    GooglePayButtonModule
   ],
-  providers: [],
+  
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

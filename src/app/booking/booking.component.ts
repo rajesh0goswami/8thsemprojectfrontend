@@ -12,22 +12,26 @@ import { range } from 'rxjs';
 })
 export class BookingComponent implements OnInit {
   movie:Movie
-  count:any=1
+  revinue:number
+  public count:any=1
   showBill:boolean=false
-  amount:any
+  public amount:any
   A1:any={} ;A2:any={};A3:any={};A4:any={};A5:any={};A6:any={};A7:any={};A8:any={};A9:any={};A10:any={}
   userName: String
   id : string
+  i:any
   price:any
-  moviename:String
+  public moviename:String
   imglink:String
   description:String
-  releasedate:String
-  showtime:String
-  date:String
+  public releasedate:String
+  public showtime:String
+  public date:Date
+  rev:number
   selected:boolean[]=[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
   avail:boolean[]=[]
   occ:String[]=[]
+  booked_seats:any=[]
   x:String
 
   constructor(private _movieService : MovieService,private _activatedRouter:ActivatedRoute) {
@@ -43,18 +47,23 @@ export class BookingComponent implements OnInit {
     // }
   }
   submit(){
+    this.i=0;
     for(var index in this.selected){
+      this.i=this.i+1
       if(this.selected[index]==true){
+        this.booked_seats.push(this.i)
         this.x=index
         this.makeAvailabilityFalse(this.x);
         this.count=this.count+1;
       }
       
     }
+    console.log(this.booked_seats);
 
     
   }
   makeAvailabilityFalse(ind){
+    
     this.avail[ind]=false
     this.occ[ind]=this.userName
     this.A1.available=this.avail[0]
@@ -78,12 +87,17 @@ export class BookingComponent implements OnInit {
     this.A9.occupiedby=this.occ[8]
     this.A10.occupiedby=this.occ[9]
     console.log(this.A1.available)
-    this.movie= { id :this.id , moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releasedate,showTime:this.showtime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
-    this._movieService.updateMovie(this.movie).subscribe()
-    console.log(this.count)
+    console.log(this.count+"number of seats")
     console.log(this.price*this.count)
     this.amount=this.price*this.count
+    console.log(this.amount+"bill amt")
     this.showBill=true
+    console.log("revinue prev"+this.rev)
+    this.revinue=this.rev+this.amount
+    console.log("revinue now =" +this.revinue)
+    this.movie= { id :this.id ,revinue:this.revinue, moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releasedate,showTime:this.showtime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
+    this._movieService.updateMovie(this.movie).subscribe()
+    
   }
     
 
@@ -98,6 +112,7 @@ export class BookingComponent implements OnInit {
      if(this.id != null){
       this._movieService.getMovieById(this.id).pipe(map(responseData=>{
         console.log(responseData)
+        this.rev=responseData.movie.revinue
         this.moviename = responseData.movie.moviename
         this.releasedate=responseData.movie.releaseDate
         this.showtime=responseData.movie.showTime
@@ -105,6 +120,7 @@ export class BookingComponent implements OnInit {
         this.imglink=responseData.movie.imglink
         this.date=responseData.movie.date
         console.log(this.moviename)
+        console.log(this.date)
         this.price= responseData.movie.price
         this.A1.available=responseData.movie.A1.available
         this.A1.occupiedby=responseData.movie.A1.occupiedby

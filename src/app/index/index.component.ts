@@ -2,7 +2,6 @@ import { Component, OnInit,Input,Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {MovieService} from '../movie.service';
 import { map } from 'rxjs/operators'
-
 import { Movie } from '../movie';
 @Component({
   selector: 'app-index',
