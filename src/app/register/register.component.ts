@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  History:string[]=[]
   role:String= "user"
   uname : string
   email : string
@@ -26,6 +27,7 @@ export class RegisterComponent implements OnInit {
 
   onCreateUser(){
     this.user = {
+      History:this.History,
       username: this.uname,
       email: this.email,
       password: this.password,

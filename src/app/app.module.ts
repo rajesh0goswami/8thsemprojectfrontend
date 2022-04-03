@@ -24,6 +24,7 @@ import { QRCodeModule } from 'angular2-qrcode';
 import { ShowRevinueComponent } from './show-revinue/show-revinue.component';
 import { GooglePayButtonModule } from '@google-pay/button-angular';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { RecommendationComponent } from './recommendation/recommendation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     JspdfComponent,
     PaymentComponent,
     ShowRevinueComponent,
+    RecommendationComponent,
   ],
   imports: [
     BrowserModule,

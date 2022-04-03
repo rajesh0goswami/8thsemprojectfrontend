@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieService} from '../movie.service';
 import { map } from 'rxjs/operators'
+import {Input,Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router'
+import { UsersService } from '../users.service';
+import { User } from '../user'
 import { Movie } from '../movie';
+
 import { convertUpdateArguments } from '@angular/compiler/src/compiler_util/expression_converter';
 import { range } from 'rxjs';
 @Component({
@@ -12,6 +16,12 @@ import { range } from 'rxjs';
 })
 export class BookingComponent implements OnInit {
   movie:Movie
+  user:User
+  public userid : string;
+  email:string
+  password:string
+  role:string
+  Genre:String
   revinue:number
   public count:any=1
   showBill:boolean=false
@@ -33,8 +43,9 @@ export class BookingComponent implements OnInit {
   occ:String[]=[]
   booked_seats:any=[]
   x:String
+  History:any=[]
 
-  constructor(private _movieService : MovieService,private _activatedRouter:ActivatedRoute) {
+  constructor(private _userService : UsersService,private _movieService : MovieService,private _activatedRouter:ActivatedRoute) {
     
   }
     
@@ -59,6 +70,27 @@ export class BookingComponent implements OnInit {
       
     }
     console.log(this.booked_seats);
+    console.log("hello");
+    this._userService.currentuserId.subscribe(uid => this.userid = uid);
+    console.log(this.userid);
+
+    this._userService.getUserById(this.userid).pipe(map(responseData=>{
+      this.History = responseData.user.History
+      this.userName=responseData.user.username
+      this.email=responseData.user.email
+      this.password=responseData.user.password
+      this.role=responseData.user.role
+    })).subscribe();
+    console.log("expect history here")
+    
+    this.History.push(this.Genre);
+    console.log(this.History);
+
+    this.user={History:this.History,username:this.userName,email:this.email,password:this.password,role:this.role}
+    this._userService.updateUser1(this.user,this.userid).subscribe()
+
+
+
 
     
   }
@@ -95,7 +127,7 @@ export class BookingComponent implements OnInit {
     console.log("revinue prev"+this.rev)
     this.revinue=this.rev+this.amount
     console.log("revinue now =" +this.revinue)
-    this.movie= { id :this.id ,revinue:this.revinue, moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releasedate,showTime:this.showtime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
+    this.movie= {Genre:this.Genre, id :this.id ,revinue:this.revinue, moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releasedate,showTime:this.showtime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
     this._movieService.updateMovie(this.movie).subscribe()
     
   }
@@ -105,6 +137,7 @@ export class BookingComponent implements OnInit {
   ngOnInit(): void {
     this.userName=localStorage.getItem('userName');
     console.log(this.userName);
+    
 
     this._activatedRouter.paramMap.subscribe(param=> this.id = (param.get('id')))
      console.log(this.id)
@@ -119,6 +152,8 @@ export class BookingComponent implements OnInit {
         this.description=responseData.movie.description
         this.imglink=responseData.movie.imglink
         this.date=responseData.movie.date
+        this.Genre=responseData.movie.Genre
+        console.log(this.Genre)
         console.log(this.moviename)
         console.log(this.date)
         this.price= responseData.movie.price
