@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users.service';
 import { Router } from '@angular/router';
 import {Input,Output} from '@angular/core'; 
-
+import Swal from 'sweetalert2';
 import { User } from '../user'
 @Component({
   selector: 'app-login',
@@ -56,7 +56,29 @@ export class LoginComponent implements OnInit {
               this._router.navigate(['/']);
             }
             
-            window.alert("you are loged in")
+            // window.alert("you are loged in")
+            let timerInterval
+Swal.fire({
+  title: 'Logging You In!',
+  html: '<b></b> milliseconds.',
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading()
+    const b = Swal.getHtmlContainer().querySelector('b')
+    timerInterval = setInterval(() => {
+      b.textContent = String(Swal.getTimerLeft())
+    }, 100)
+  },
+  willClose: () => {
+    clearInterval(timerInterval)
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    console.log('I was closed by the timer')
+  }
+})
         }else{
           this.LoginFailedMessage = responseData.message
           this.isLoggedInFailed = false

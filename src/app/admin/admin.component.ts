@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -20,7 +21,15 @@ export class AdminComponent implements OnInit {
     localStorage.removeItem('userName');
     
     this._router.navigate(['/login'])
-    window.alert("you loged out");
+    Swal.fire({
+      title: 'Admin Logged Out ',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    })
 
   }
   showmovies(){

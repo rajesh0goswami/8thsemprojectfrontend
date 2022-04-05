@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users.service'
 import { User } from '../user'
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -33,7 +35,15 @@ export class RegisterComponent implements OnInit {
       password: this.password,
       role:this.role,
     }
-    this._userService.saveUser(this.user).subscribe();
+    this._userService.saveUser(this.user).subscribe()
+   
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1500
+    })
     this._router.navigate(['/login']);
     // this._userService.saveUser({name: this.uname,email:this.email,password:this.password}).subscribe(responseData=>{
     //   console.log(responseData.user)

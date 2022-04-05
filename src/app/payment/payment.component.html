@@ -1,10 +1,5 @@
-<p>payment works!</p>
-<h1>Payment gateway</h1>
-<div>
-    <h3>Description</h3>
-    <!-- <div [innerHtml]="itemDescription"></div> -->
-</div>
-<div class="buttons">
-    <google-pay-button environment="TEST" buttonSizeMode="fill" [paymentRequest]="paymentRequest" (loadpaymentdata)="onLoadPaymentData($event)"></google-pay-button>
-    <button mat-stroked-button>Add</button>
-</div>
+<!-- <div class="buttons">
+    <google-pay-button environment="TEST" buttonSizeMode="fill" buttonType="buy" [paymentRequest]="paymentRequest" (loadpaymentdata)="onLoadPaymentData($event)" (paymentAuthorizedCallback)="onPaymentDataAuthorized" (error)="onError($event)">
+    </google-pay-button>
+
+</div> -->

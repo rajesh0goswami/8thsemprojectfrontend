@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {MovieService} from '../movie.service';
 import { map } from 'rxjs/operators'
 import { Movie } from '../movie';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -93,7 +94,29 @@ export class IndexComponent implements OnInit {
     localStorage.removeItem('userName');
     this.isLoggedIn = false;
     this._router.navigate(['/login'])
-    window.alert("you loged out");
+    // window.alert("you loged out");
+    let timerInterval
+Swal.fire({
+  title: 'Logging out!',
+  html: '<b></b> milliseconds.',
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading()
+    const b = Swal.getHtmlContainer().querySelector('b')
+    timerInterval = setInterval(() => {
+      b.textContent = String(Swal.getTimerLeft())
+    }, 100)
+  },
+  willClose: () => {
+    clearInterval(timerInterval)
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    console.log('I was closed by the timer')
+  }
+})
 
   }
 

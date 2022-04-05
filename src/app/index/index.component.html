@@ -46,7 +46,17 @@
 
 
 </div>
+<div>
+    <main class="page-content">
+        <div class="d_card" *ngFor="let movie of movies">
+            <div class="content">
+                <h2 class="heading">{{movie.moviename}}</h2>
+                <p class="data-content">{{movie.description}} </p>
+            </div>
+        </div>
 
+    </main>
+</div>
 
 <div class="container-fluid pb-0 mb-0 justify-content-center text-light ">
     <footer>
