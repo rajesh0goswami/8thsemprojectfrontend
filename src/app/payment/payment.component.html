@@ -1,5 +1,5 @@
-<!-- <div class="buttons">
-    <google-pay-button environment="TEST" buttonSizeMode="fill" buttonType="buy" [paymentRequest]="paymentRequest" (loadpaymentdata)="onLoadPaymentData($event)" (paymentAuthorizedCallback)="onPaymentDataAuthorized" (error)="onError($event)">
+<div class="buttons">
+    <google-pay-button (click)="onPayment()" environment="TEST" buttonSizeMode="fill" buttonType="buy" [paymentRequest]="paymentRequest" (loadpaymentdata)="onLoadPaymentData($event)" (paymentAuthorizedCallback)="onPaymentDataAuthorized" (error)="onError($event)">
     </google-pay-button>
 
-</div> -->
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -7,16 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentComponent implements OnInit {
 
-  price:Number
+    price:Number
 
-  paymentRequest!:google.payments.api.PaymentDataRequest;
-
-
- 
-  constructor() { }
-
-  ngOnInit(): void {
-    this.paymentRequest={
+    paymentRequest:google.payments.api.PaymentDataRequest={
       apiVersion:2,
       apiVersionMinor:0,
       allowedPaymentMethods:[
@@ -30,7 +23,7 @@ export class PaymentComponent implements OnInit {
             type:'PAYMENT_GATEWAY',
             parameters:{
               gateway:'example',
-              gatewayMerchantId:'exampleGateWayMerchantId',
+              gatewayMerchantId:'BCR2DN4T6DHPHHI2',
             },
           },
         },
@@ -42,17 +35,36 @@ export class PaymentComponent implements OnInit {
       transactionInfo:{
         totalPriceStatus:'FINAL',
         totalPriceLabel:'Total',
-        totalPrice:this.price.toFixed(2),
+        totalPrice:'1.0',
         currencyCode:'INR',
         countryCode:'IND',
 
       },
-    }
-  }
+      callbackIntents:['PAYMENT_AUTHORIZATION']
 
- async onLoadPaymentData(event:Event)  {
-   const paymentData=(event as CustomEvent<google.payments.api.PaymentData>).detail;
+    };
 
+ onLoadPaymentData=(event:Event)  :void=>{
+   const eventDetail = event as CustomEvent<google.payments.api.PaymentData>
+   console.log('Load payment Data',eventDetail.detail)
+ }
+ onPaymentDataAuthorized:google.payments.api.PaymentAuthorizedHandler=(
+  paymentData
+ )=>{
+   console.log('payment authorized',paymentData);
+   return{
+     transactionState:'SUCCESS'
    }
+ }
+  onError=(event:ErrorEvent):void=>{
+    console.log('error',event.error);
+  }
+  onPayment(){
+    // this._router.navigate(['/jspdf']);
+  }
+ 
+  constructor(private _router : Router) { }
+
+  ngOnInit(): void { }
 
 }

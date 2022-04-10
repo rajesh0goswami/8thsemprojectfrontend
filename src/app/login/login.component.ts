@@ -10,7 +10,7 @@ import { User } from '../user'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  History:string[]
+  historyData:string
   email : String
   uname: String
   public uid:any
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password,
       role:this.role,
-      History:this.History
+      historyData:this.historyData
     }
     this._userService.doLogin(this.user).subscribe(responseData=>{
         if(responseData.token!=''){

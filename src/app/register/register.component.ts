@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  History:string[]=[]
+  historyData:string
   role:String= "user"
   uname : string
   email : string
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
 
   onCreateUser(){
     this.user = {
-      History:this.History,
+      historyData:this.historyData,
       username: this.uname,
       email: this.email,
       password: this.password,

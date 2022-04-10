@@ -23,7 +23,7 @@ export class UsersService {
       headers: httpHeaders
     }
     
-     return this._http.put<{message : string}>(this._baseUri+'/update1/'+id,user, httpOptions );
+     return this._http.put<{message : string}>(this._baseUri+'update1/'+id,user, httpOptions );
 
   }
   updateUserId(uid: string) {

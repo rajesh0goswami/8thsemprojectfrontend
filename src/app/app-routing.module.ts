@@ -7,8 +7,10 @@ import { BookingdetailsComponent } from './bookingdetails/bookingdetails.compone
 import { ContactComponent } from './contact/contact.component';
 import { EditmovieComponent } from './editmovie/editmovie.component';
 import { IndexComponent } from './index/index.component';
+import { JspdfComponent } from './jspdf/jspdf.component';
 import { LoginComponent } from './login/login.component';
 import { MovieComponent } from './movie/movie.component';
+import { PaymentComponent } from './payment/payment.component';
 import { RegisterComponent } from './register/register.component';
 
 
@@ -48,6 +50,14 @@ const routes: Routes = [
   {
     path:"edit/:id",
     component:EditmovieComponent
+  },
+  {
+    path:"payment",
+    component:PaymentComponent
+  },
+  {
+    path:"jspdf",
+    component:JspdfComponent
   },
   {
     path:"details/:id",

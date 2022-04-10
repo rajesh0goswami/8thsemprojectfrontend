@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router'
 import { UsersService } from '../users.service';
 import { User } from '../user'
 import { Movie } from '../movie';
+import { Router } from '@angular/router';
 
 import { convertUpdateArguments } from '@angular/compiler/src/compiler_util/expression_converter';
 import { range } from 'rxjs';
@@ -43,9 +44,9 @@ export class BookingComponent implements OnInit {
   occ:String[]=[]
   booked_seats:any=[]
   x:String
-  History:any=[]
+  historyData:any
 
-  constructor(private _userService : UsersService,private _movieService : MovieService,private _activatedRouter:ActivatedRoute) {
+  constructor(private _userService : UsersService,private _movieService : MovieService,private _activatedRouter:ActivatedRoute,private _router : Router) {
     
   }
     
@@ -71,24 +72,27 @@ export class BookingComponent implements OnInit {
     }
     console.log(this.booked_seats);
     console.log("hello");
+
+
     this._userService.currentuserId.subscribe(uid => this.userid = uid);
     console.log(this.userid);
+  
+  this._userService.getUserById(this.userid).pipe(map(responseData=>{
+    console.log(responseData)
+    this.historyData = responseData.user.historyData
+    this.historyData.concat('/'+this.Genre);
+    this.userName=responseData.user.username
+    this.email=responseData.user.email
+    this.password=responseData.user.password
+    this.role=responseData.user.role
+  })).subscribe();
+  console.log("expect history here")
+  console.log(this.historyData);
 
-    this._userService.getUserById(this.userid).pipe(map(responseData=>{
-      this.History = responseData.user.History
-      this.userName=responseData.user.username
-      this.email=responseData.user.email
-      this.password=responseData.user.password
-      this.role=responseData.user.role
-    })).subscribe();
-    console.log("expect history here")
+  this.user={historyData:this.historyData,username:this.userName,email:this.email,password:this.password,role:this.role}
+  this._userService.updateUser1(this.user,this.userid).subscribe()
     
-    this.History.push(this.Genre);
-    console.log(this.History);
-
-    this.user={History:this.History,username:this.userName,email:this.email,password:this.password,role:this.role}
-    this._userService.updateUser1(this.user,this.userid).subscribe()
-
+  this._router.navigate(['/payment']);
 
 
 
@@ -204,6 +208,11 @@ export class BookingComponent implements OnInit {
         console.log(this.avail)
        
       })).subscribe();
+
+
+
+console.log('=============================')
+     
    
 
   }
