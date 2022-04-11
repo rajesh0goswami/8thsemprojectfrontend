@@ -18,6 +18,7 @@ import { range } from 'rxjs';
 export class BookingComponent implements OnInit {
   movie:Movie
   user:User
+  
   public userid : string;
   email:string
   password:string
@@ -32,6 +33,7 @@ export class BookingComponent implements OnInit {
   id : string
   i:any
   price:any
+  bill:string
   public moviename:String
   imglink:String
   description:String
@@ -45,7 +47,7 @@ export class BookingComponent implements OnInit {
   booked_seats:any=[]
   x:String
   historyData:any
-
+  trailerlink:String
   constructor(private _userService : UsersService,private _movieService : MovieService,private _activatedRouter:ActivatedRoute,private _router : Router) {
     
   }
@@ -74,25 +76,9 @@ export class BookingComponent implements OnInit {
     console.log("hello");
 
 
-    this._userService.currentuserId.subscribe(uid => this.userid = uid);
-    console.log(this.userid);
-  
-  this._userService.getUserById(this.userid).pipe(map(responseData=>{
-    console.log(responseData)
-    this.historyData = responseData.user.historyData
-    this.historyData.concat('/'+this.Genre);
-    this.userName=responseData.user.username
-    this.email=responseData.user.email
-    this.password=responseData.user.password
-    this.role=responseData.user.role
-  })).subscribe();
-  console.log("expect history here")
-  console.log(this.historyData);
-
-  this.user={historyData:this.historyData,username:this.userName,email:this.email,password:this.password,role:this.role}
-  this._userService.updateUser1(this.user,this.userid).subscribe()
+   
     
-  this._router.navigate(['/payment']);
+  
 
 
 
@@ -125,13 +111,14 @@ export class BookingComponent implements OnInit {
     console.log(this.A1.available)
     console.log(this.count+"number of seats")
     console.log(this.price*this.count)
-    this.amount=this.price*this.count
-    console.log(this.amount+"bill amt")
+    this.amount=(this.price*this.count)
+    console.log(this.amount+" bill amt")
+    this.bill=String(this.amount)
     this.showBill=true
     console.log("revinue prev"+this.rev)
     this.revinue=this.rev+this.amount
     console.log("revinue now =" +this.revinue)
-    this.movie= {Genre:this.Genre, id :this.id ,revinue:this.revinue, moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releasedate,showTime:this.showtime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
+    this.movie= {trailerlink:this.trailerlink,Genre:this.Genre, id :this.id ,revinue:this.revinue, moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releasedate,showTime:this.showtime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
     this._movieService.updateMovie(this.movie).subscribe()
     
   }
@@ -144,11 +131,11 @@ export class BookingComponent implements OnInit {
     
 
     this._activatedRouter.paramMap.subscribe(param=> this.id = (param.get('id')))
-     console.log(this.id)
+    //  console.log(this.id)
 
      if(this.id != null){
       this._movieService.getMovieById(this.id).pipe(map(responseData=>{
-        console.log(responseData)
+        // console.log(responseData)
         this.rev=responseData.movie.revinue
         this.moviename = responseData.movie.moviename
         this.releasedate=responseData.movie.releaseDate
@@ -157,9 +144,9 @@ export class BookingComponent implements OnInit {
         this.imglink=responseData.movie.imglink
         this.date=responseData.movie.date
         this.Genre=responseData.movie.Genre
-        console.log(this.Genre)
-        console.log(this.moviename)
-        console.log(this.date)
+        // console.log(this.Genre)
+        // console.log(this.moviename)
+        // console.log(this.date)
         this.price= responseData.movie.price
         this.A1.available=responseData.movie.A1.available
         this.A1.occupiedby=responseData.movie.A1.occupiedby
@@ -181,8 +168,8 @@ export class BookingComponent implements OnInit {
         this.A9.occupiedby=responseData.movie.A9.occupiedby
         this.A10.available=responseData.movie.A10.available
         this.A10.occupiedby=responseData.movie.A10.occupiedby
-        console.log(this.A1.available);
-        console.log(this.A1.occupiedby);
+        // console.log(this.A1.available);
+        // console.log(this.A1.occupiedby);
         this.avail[0]=this.A1.available;
         this.avail[1]=this.A2.available;
         this.avail[2]=this.A3.available;
@@ -205,14 +192,33 @@ export class BookingComponent implements OnInit {
         this.occ[8]=this.A9.occupiedby;
         this.occ[9]=this.A10.occupiedby;
         
-        console.log(this.avail)
+        // console.log(this.avail)
        
       })).subscribe();
 
 
 
 console.log('=============================')
-     
+this._userService.currentuserId.subscribe(uid => this.userid = uid);
+console.log(this.userid);
+
+this._userService.getUserById(this.userid).pipe(map(responseData=>{
+  console.log(responseData)
+  this.historyData = responseData.user.historyData
+  
+  this.userName = responseData.user.username
+  this.email = responseData.user.email
+  this.password = responseData.user.password
+  this.role = responseData.user.role
+  
+err=>console.log('HTTP Error', err);
+() => console.log('HTTP request completed.')
+})).subscribe();
+console.log(this.historyData);
+this.historyData.concat('/'+this.Genre);
+console.log(this.historyData);
+this.user={historyData:this.historyData,username:this.userName,email:this.email,password:this.password,role:this.role}
+this._userService.updateUser1(this.user,this.userid).subscribe()
    
 
   }

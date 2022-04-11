@@ -1,5 +1,34 @@
-<div class="buttons">
-    <google-pay-button (click)="onPayment()" environment="TEST" buttonSizeMode="fill" buttonType="buy" [paymentRequest]="paymentRequest" (loadpaymentdata)="onLoadPaymentData($event)" (paymentAuthorizedCallback)="onPaymentDataAuthorized" (error)="onError($event)">
-    </google-pay-button>
+<div class="main">
+    <div class="card">
+        <img src="https://d26tqmt1mjuqkn.cloudfront.net/_img_/509629103/8012510c6fcdfd63001cbd03498642ca313b0891/1200-0-60">
+        <div class="card-title">
+            <h4>Your bill is </h4>
+            <h3>{{price}}</h3>
+            <p>742 Evergreen Terrace</p>
+        </div>
+        <div class="card-content">
+            <div class="card-content-row">
+                <div class="card-content-col">
+                    <i class="fa fa-bed"></i>
+                    <b>3</b> Bedrooms
+                </div>
+                <div class="card-content-col">
+                    <i class="fa fa-bath"></i>
+                    <b>2</b> Bathrooms
+                </div>
+            </div>
+            <div class="card-content-user-info">
+                <img src="https://homefinder.com/images/preferred-partner-agent.jpg">
+                <div class="card-content-user-contact">
+                    <h4>Tiffany Heffner</h4>
+                    <p>(555) 555-4321</p>
+                </div>
+            </div>
+            <div class="buttons">
+                <google-pay-button (click)="onPayment()" environment="TEST" buttonSizeMode="fill" buttonType="buy" [paymentRequest]="paymentRequest" (loadpaymentdata)="onLoadPaymentData($event)" (paymentAuthorizedCallback)="onPaymentDataAuthorized" (error)="onError($event)">
+                </google-pay-button>
 
+            </div>
+        </div>
+    </div>
 </div>

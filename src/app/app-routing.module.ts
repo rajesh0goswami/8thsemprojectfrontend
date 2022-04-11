@@ -52,7 +52,7 @@ const routes: Routes = [
     component:EditmovieComponent
   },
   {
-    path:"payment",
+    path:"payment/:bill",
     component:PaymentComponent
   },
   {

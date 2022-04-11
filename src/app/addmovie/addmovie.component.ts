@@ -10,7 +10,7 @@ import { Movie } from '../movie';
   styleUrls: ['./addmovie.component.css']
 })
 export class AddmovieComponent implements OnInit {
-
+  trailerlink:String
   movie:Movie
   revinue:number=0
   id: string
@@ -25,7 +25,7 @@ export class AddmovieComponent implements OnInit {
   releaseDate:String
   constructor(private _movieService : MovieService,private _activatedRouter:ActivatedRoute,private _router : Router) { }
   addMovie(){
-    this.movie= {Genre:this.Genre,revinue:this.revinue , id :this.id , moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releaseDate,showTime:this.showTime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
+    this.movie= {trailerlink:this.trailerlink,Genre:this.Genre,revinue:this.revinue , id :this.id , moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releaseDate,showTime:this.showTime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
 
     this._movieService.saveMovie(this.movie).subscribe(responseData=>{
       this._router.navigate(['/admin']);

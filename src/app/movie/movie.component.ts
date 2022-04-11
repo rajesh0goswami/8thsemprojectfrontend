@@ -16,6 +16,7 @@ export class MovieComponent implements OnInit {
   revinue:number
   price:String;
   id :string
+  trailerlink:String;
   imglink:String;
   description:String;
   userName : string;
@@ -29,11 +30,12 @@ export class MovieComponent implements OnInit {
      if(this.id != null){
       this._movieService.getMovieById(this.id).pipe(map(responseData=>{
         this.moviename = responseData.movie.moviename
-        console.log(this.moviename)
+        console.log(responseData)
         this.price= responseData.movie.price
         this.revinue=responseData.movie.revinue
         this.description=responseData.movie.description
         this.imglink=responseData.movie.imglink
+        this.trailerlink=responseData.movie.trailerlink
        
       })).subscribe();
 

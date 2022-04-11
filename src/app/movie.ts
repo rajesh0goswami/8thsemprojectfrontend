@@ -1,7 +1,9 @@
 export class Movie {
     id:String
+    
     moviename : String;
     imglink : String;
+    trailerlink:String;
     description : String;
     releaseDate:String;
     showTime : String;
