@@ -74,6 +74,39 @@ export class BookingComponent implements OnInit {
     }
     console.log(this.booked_seats);
     console.log("hello");
+    
+    console.log('=============================')
+    this._userService.currentuserId.subscribe(uid => this.userid = uid);
+    console.log(this.userid);
+
+
+
+    this._userService.getUserById(this.userid).subscribe({
+      next: responseData => {
+        console.log(responseData)
+        this.historyData = responseData.user.historyData
+        this.userName = responseData.user.username
+        this.email = responseData.user.email
+        this.password = responseData.user.password
+        this.role = responseData.user.role
+        console.log(this.userName);
+        console.log(this.historyData);
+        console.log(this.Genre)
+        
+        this.historyData.concat(this.Genre.toString());
+        console.log(this.historyData);
+        console.log(this.userName);
+        this.user = { historyData: this.historyData+'/'+this.Genre, username: this.userName, email: this.email, password: this.password, role: this.role }
+        this._userService.updateUser1(this.user, this.userid).subscribe()
+      },
+      error: err => {
+        console.log("Error");
+        
+      }
+    })
+    
+
+   
 
 
    
@@ -196,30 +229,6 @@ export class BookingComponent implements OnInit {
        
       })).subscribe();
 
-
-
-console.log('=============================')
-this._userService.currentuserId.subscribe(uid => this.userid = uid);
-console.log(this.userid);
-
-this._userService.getUserById(this.userid).pipe(map(responseData=>{
-  console.log(responseData)
-  this.historyData = responseData.user.historyData
-  
-  this.userName = responseData.user.username
-  this.email = responseData.user.email
-  this.password = responseData.user.password
-  this.role = responseData.user.role
-  
-err=>console.log('HTTP Error', err);
-() => console.log('HTTP request completed.')
-})).subscribe();
-console.log(this.historyData);
-this.historyData.concat('/'+this.Genre);
-console.log(this.historyData);
-this.user={historyData:this.historyData,username:this.userName,email:this.email,password:this.password,role:this.role}
-this._userService.updateUser1(this.user,this.userid).subscribe()
-   
 
   }
 
