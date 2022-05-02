@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators'
 import {Input,Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router'
 import { UsersService } from '../users.service';
+import { BillService } from '../bill.service';
 import { User } from '../user'
 import { Movie } from '../movie';
 import { Router } from '@angular/router';
@@ -18,9 +19,9 @@ import { range } from 'rxjs';
 export class BookingComponent implements OnInit {
   movie:Movie
   user:User
-  
   public userid : string;
   email:string
+  
   password:string
   role:string
   Genre:String
@@ -39,7 +40,7 @@ export class BookingComponent implements OnInit {
   description:String
   public releasedate:String
   public showtime:String
-  public date:Date
+  public date:String
   rev:number
   selected:boolean[]=[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
   avail:boolean[]=[]
@@ -48,7 +49,7 @@ export class BookingComponent implements OnInit {
   x:String
   historyData:any
   trailerlink:String
-  constructor(private _userService : UsersService,private _movieService : MovieService,private _activatedRouter:ActivatedRoute,private _router : Router) {
+  constructor(private _userService : UsersService,private _billService:BillService,private _movieService : MovieService,private _activatedRouter:ActivatedRoute,private _router : Router) {
     
   }
     
@@ -73,14 +74,11 @@ export class BookingComponent implements OnInit {
       
     }
     console.log(this.booked_seats);
-    console.log("hello");
-    
-    console.log('=============================')
+
+    this._billService.updateUserSeat(this.booked_seats);
+
     this._userService.currentuserId.subscribe(uid => this.userid = uid);
     console.log(this.userid);
-
-
-
     this._userService.getUserById(this.userid).subscribe({
       next: responseData => {
         console.log(responseData)
@@ -105,20 +103,8 @@ export class BookingComponent implements OnInit {
       }
     })
     
-
-   
-
-
-   
-    
-  
-
-
-
-    
   }
-  makeAvailabilityFalse(ind){
-    
+  makeAvailabilityFalse(ind){ 
     this.avail[ind]=false
     this.occ[ind]=this.userName
     this.A1.available=this.avail[0]
@@ -146,12 +132,14 @@ export class BookingComponent implements OnInit {
     console.log(this.price*this.count)
     this.amount=(this.price*this.count)
     console.log(this.amount+" bill amt")
-    this.bill=String(this.amount)
+
+    this._billService.updateUserBill(this.amount)
+
     this.showBill=true
     console.log("revinue prev"+this.rev)
     this.revinue=this.rev+this.amount
     console.log("revinue now =" +this.revinue)
-    this.movie= {trailerlink:this.trailerlink,Genre:this.Genre, id :this.id ,revinue:this.revinue, moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releasedate,showTime:this.showtime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
+    this.movie= {date:this.date,trailerlink:this.trailerlink,Genre:this.Genre, id :this.id ,revinue:this.revinue, moviename : this.moviename, description : this.description,imglink:this.imglink,price:this.price,releaseDate:this.releasedate,showTime:this.showtime,A1:this.A1,A2:this.A2,A3:this.A3,A4:this.A4,A5:this.A5,A6:this.A6,A7:this.A7,A8:this.A8,A9:this.A9,A10:this.A10}
     this._movieService.updateMovie(this.movie).subscribe()
     
   }
@@ -171,11 +159,16 @@ export class BookingComponent implements OnInit {
         // console.log(responseData)
         this.rev=responseData.movie.revinue
         this.moviename = responseData.movie.moviename
+        this._billService.updateMovieName(this.moviename);
         this.releasedate=responseData.movie.releaseDate
+        this.date=responseData.movie.date
         this.showtime=responseData.movie.showTime
+        this._billService.updateShowTime(this.showtime);
         this.description=responseData.movie.description
         this.imglink=responseData.movie.imglink
         this.date=responseData.movie.date
+        this._billService.updateShowDate(this.date);
+        
         this.Genre=responseData.movie.Genre
         // console.log(this.Genre)
         // console.log(this.moviename)

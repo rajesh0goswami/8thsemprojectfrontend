@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
+import { BillService } from '../bill.service';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -8,7 +9,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class PaymentComponent implements OnInit {
 
-    price:any
+    public bill:any
 
     paymentRequest:google.payments.api.PaymentDataRequest={
       apiVersion:2,
@@ -64,11 +65,11 @@ export class PaymentComponent implements OnInit {
     this._router.navigate(['/jspdf']);
   }
  
-  constructor(private _router : Router,private _activatedRouter:ActivatedRoute) { }
+  constructor(private _router : Router,private _activatedRouter:ActivatedRoute,private _billService:BillService) { }
 
   ngOnInit(): void {
-    this._activatedRouter.paramMap.subscribe(param=> this.price = (param.get('bill')))
-    console.log(this.price);
+    this._billService.currentuserbill.subscribe(ubill => this.bill = ubill);
+    console.log(this.bill);
    }
 
 }

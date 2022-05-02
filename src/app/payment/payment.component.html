@@ -1,9 +1,9 @@
 <div class="main">
     <div class="card">
-        <img src="https://d26tqmt1mjuqkn.cloudfront.net/_img_/509629103/8012510c6fcdfd63001cbd03498642ca313b0891/1200-0-60">
+        <img src="https://www.ticketonlinebooking.com/wp-content/uploads/2018/11/movie.jpg">
         <div class="card-title">
             <h4>Your bill is </h4>
-            <h3>{{price}}</h3>
+            <h3>{{bill}}</h3>
             <p>742 Evergreen Terrace</p>
         </div>
         <div class="card-content">
@@ -25,9 +25,39 @@
                 </div>
             </div>
             <div class="buttons">
-                <google-pay-button (click)="onPayment()" environment="TEST" buttonSizeMode="fill" buttonType="buy" [paymentRequest]="paymentRequest" (loadpaymentdata)="onLoadPaymentData($event)" (paymentAuthorizedCallback)="onPaymentDataAuthorized" (error)="onError($event)">
-                </google-pay-button>
-
+                <!-- <google-pay-button (click)="onPayment()" environment="TEST" buttonSizeMode="fill" buttonType="buy" [paymentRequest]="paymentRequest" (loadpaymentdata)="onLoadPaymentData($event)" (paymentAuthorizedCallback)="onPaymentDataAuthorized" (error)="onError($event)">
+                </google-pay-button> -->
+                <google-pay-button style="padding-left: 20%;" environment="TEST" buttonType="buy" buttonColor="black" [paymentRequest]="{
+    apiVersion: 2,
+    apiVersionMinor: 0,
+    allowedPaymentMethods: [
+      {
+        type: 'CARD',
+        parameters: {
+          allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+          allowedCardNetworks: ['AMEX', 'VISA', 'MASTERCARD']
+        },
+        tokenizationSpecification: {
+          type: 'PAYMENT_GATEWAY',
+          parameters: {
+            gateway: 'example',
+            gatewayMerchantId: 'exampleGatewayMerchantId'
+          }
+        }
+      }
+    ],
+    merchantInfo: {
+      merchantId: '12345678901234567890',
+      merchantName: 'Demo Merchant'
+    },
+    transactionInfo: {
+      totalPriceStatus: 'FINAL',
+      totalPriceLabel: 'Total',
+      totalPrice: '100.00',
+      currencyCode: 'USD',
+      countryCode: 'US'
+    }
+  }" (loadpaymentdata)="onLoadPaymentData($event)"></google-pay-button>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ export class Movie {
     trailerlink:String;
     description : String;
     releaseDate:String;
+    date:String;
     showTime : String;
     price : String;
     A1:seat;

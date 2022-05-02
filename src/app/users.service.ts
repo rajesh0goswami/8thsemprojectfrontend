@@ -8,27 +8,31 @@ import { User } from './user';
 })
 export class UsersService {
 
-  private _baseUri = "http://localhost:8080/users/"
-  // private _baseUri = "https://movie-ticket-backend.herokuapp.com/users/"
-  constructor(private _http : HttpClient) { }
-  private userId = new BehaviorSubject('');     
-  currentuserId = this.userId.asObservable();
+    private _baseUri = "http://localhost:8080/users/"
+    // private _baseUri = "https://movie-ticket-backend.herokuapp.com/users/"
+    
+    constructor(private _http : HttpClient) { }
 
-  updateUser1(user:User,id:String){
-    const httpHeaders=new HttpHeaders({
-      'Content-Type' : 'application/json',
-      'Authorization' : 'Bearer '+ localStorage.getItem('token')
-    })
-    const httpOptions={
-      headers: httpHeaders
-    }
+
+    private userId = new BehaviorSubject('');     
+    currentuserId = this.userId.asObservable();
+    updateUserId(uid: string) {
+      this.userId.next(uid)
+      }
+
+    updateUser1(user:User,id:String){
+      const httpHeaders=new HttpHeaders({
+        'Content-Type' : 'application/json',
+        'Authorization' : 'Bearer '+ localStorage.getItem('token')
+      })
+      const httpOptions={
+        headers: httpHeaders
+      }
     
      return this._http.put<{message : string}>(this._baseUri+'update1/'+id,user, httpOptions );
 
   }
-  updateUserId(uid: string) {
-    this.userId.next(uid)
-    }
+ 
 
     getUsers(){
       return this._http.get<{message:string, user:any}>(this._baseUri);
